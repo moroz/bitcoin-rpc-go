@@ -1,0 +1,8 @@
+export PGDATABASE=crypto_shop_dev
+export GOOSE_DBSTRING=postgres://postgres:postgres@localhost:5432/${PGDATABASE}?sslmode=disable
+export DATABASE_URL="${GOOSE_DBSTRING}"
+export GOOSE_DRIVER=postgres
+export GOOSE_MIGRATIONS_DIR=db/migrations
+
+# openssl rand 64 | base64
+export SECRET_KEY_BASE=
