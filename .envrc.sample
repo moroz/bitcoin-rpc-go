@@ -5,4 +5,8 @@ export GOOSE_DRIVER=postgres
 export GOOSE_MIGRATIONS_DIR=db/migrations
 
 # openssl rand 64 | base64
-export SECRET_KEY_BASE=
+export SERVER_PRIVATE_KEY_BASE=
+
+# Two master keys, one stays offline and the other one is on the server
+export COLD_PRIVATE_KEY=
+export COLD_PUBLIC_KEY=
