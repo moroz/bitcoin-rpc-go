@@ -10,7 +10,7 @@ import (
 func MustGetenv(key string) string {
 	val := os.Getenv(key)
 	if val == "" {
-		log.Fatalf("Environment variable %s is not set!", val)
+		log.Fatalf("Environment variable %s is not set!", key)
 	}
 	return val
 }
