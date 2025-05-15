@@ -45,7 +45,7 @@ func main() {
 	}
 
 	fmt.Println("# For your local setup:")
-	fmt.Printf("export WALLET_SEED=\"%s\"\n\n", base64.RawStdEncoding.EncodeToString(seed))
+	fmt.Printf("export WALLET_SEED=\"%s\"\n\n", base64.StdEncoding.EncodeToString(seed))
 
 	fmt.Println("# For the server:")
 	fmt.Printf("export WALLET_ORDER_BASE_PUBKEY=\"%s\"\n", key.String())
