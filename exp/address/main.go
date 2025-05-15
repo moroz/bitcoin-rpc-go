@@ -23,7 +23,7 @@ var ORDER_IDS = []string{
 	"0196d3a1-5b06-7a59-bbce-6b2b1037dfc7",
 }
 
-var HMAC_WALLET_DERIVATION_KEY = argon2.IDKey(config.SECRET_KEY_BASE, []byte("wallet"), config.ARGON2ID_MEMORY, config.ARGON2ID_TIME, config.ARGON2ID_PARALLELISM, 32)
+var HMAC_WALLET_DERIVATION_KEY = argon2.IDKey(config.SECRET_KEY_BASE, []byte("hmac"), config.ARGON2ID_MEMORY, config.ARGON2ID_TIME, config.ARGON2ID_PARALLELISM, 32)
 
 func walletIndexFromBytes(bytes []byte) uint32 {
 	var val uint32
