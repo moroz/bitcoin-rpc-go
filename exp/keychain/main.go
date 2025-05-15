@@ -1,25 +1,15 @@
 package main
 
 import (
+	"encoding/base64"
 	"fmt"
 	"log"
 
-	"github.com/btcsuite/btcd/btcec/v2"
-	"github.com/btcsuite/btcd/btcutil"
 	"github.com/btcsuite/btcd/btcutil/hdkeychain"
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/moroz/bitcoin-rpc-go/config"
 	"golang.org/x/crypto/argon2"
 )
-
-func pubKeyToSegWitAddress(key *btcec.PublicKey) (string, error) {
-	witnessProg := btcutil.Hash160(key.SerializeCompressed())
-	addr, err := btcutil.NewAddressWitnessPubKeyHash(witnessProg, &chaincfg.MainNetParams)
-	if err != nil {
-		return "", err
-	}
-	return addr.EncodeAddress(), nil
-}
 
 func deriveNeuteredBaseWalletFromMaster(master *hdkeychain.ExtendedKey) (key *hdkeychain.ExtendedKey, err error) {
 	// m/84'
@@ -54,7 +44,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	pubKey, _ := key.ECPubKey()
-	addr, err := pubKeyToSegWitAddress(pubKey)
-	fmt.Println("Derived from public:", addr)
+	fmt.Println("# For your local setup:")
+	fmt.Printf("export WALLET_SEED=\"%s\"\n\n", base64.RawStdEncoding.EncodeToString(seed))
+
+	fmt.Println("# For the server:")
+	fmt.Printf("export WALLET_ORDER_BASE_PUBKEY=\"%s\"\n", key.String())
 }

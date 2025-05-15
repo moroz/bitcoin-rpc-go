@@ -36,6 +36,8 @@ func MustGetenvHex(key string) []byte {
 var DATABASE_URL = MustGetenv("DATABASE_URL")
 var SECRET_KEY_BASE = MustGetenvBase64("SECRET_KEY_BASE")
 var COLD_PUBLIC_KEY = MustGetenvHex("COLD_PUBLIC_KEY")
+var WALLET_SEED = MustGetenvBase64("WALLET_SEED")
+var WALLET_ORDER_BASE_PUBKEY = MustGetenv("WALLET_ORDER_BASE_PUBKEY")
 
 // These parameters are required to generate secret keys for orders
 // Do not change these once in production, otherwise the keys will change
