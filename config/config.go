@@ -42,4 +42,4 @@ var WALLET_ORDER_BASE_PUBKEY = MustGetenv("WALLET_ORDER_BASE_PUBKEY")
 // Do not change these once in production, otherwise the keys will change
 const ARGON2ID_MEMORY = 46 * 1024
 const ARGON2ID_TIME = 1
-const ARGON2ID_PARALLELISM = 1
+const ARGON2ID_PARALLELISM = 8

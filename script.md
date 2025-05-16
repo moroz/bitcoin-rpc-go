@@ -6,7 +6,11 @@ If you're new to this channel: My name is Karol Moroz, and you are watching Make
 I specialize in highly technical videos about programming.
 This is my first video about Bitcoin, and hopefully a lot more are comming.
 
-Before we talk about the "hows", let's quickly talk about the "whys". Why should you generate burner addresses and not just accept payments on your hot wallet or to your crypto exchange?
+Using BIP32, you can generate a virtually infinite number of public keys and addresses from a single 32-byte seed.
+Now, the best part is that you can generate public keys based on a single public key, without ever storing the seed on your server.
+
+Before I show you exactly how to do it, let us quickly discuss the rationale.
+Why should you generate burner addresses and not just accept payments on your hot wallet or to your crypto exchange?
 
 The first reason is privacy. All transactions on the Bitcoin blockchain are public, so if you use the same address for everything, anyone who has ever bought from you will be able to tell exactly how much money you have received and spent. That is not ideal.
 
