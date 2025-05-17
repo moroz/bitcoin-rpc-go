@@ -2,15 +2,17 @@ package main
 
 import (
 	"crypto/rand"
+	"encoding/base64"
 	"fmt"
 	"math/big"
 	"testing"
 
 	"github.com/btcsuite/btcd/btcutil/hdkeychain"
 	"github.com/btcsuite/btcd/chaincfg"
-	"github.com/moroz/bitcoin-rpc-go/config"
 	"golang.org/x/crypto/argon2"
 )
+
+var SECRET_KEY_BASE, _ = base64.StdEncoding.DecodeString("adkwd6hlANolxxSN/oV6BVkcC5wfeQy1hjO0Dcx8yRwzkZed6Gr7ljmY84whL/A+fgcxn9ZzkZc3cGWNw9cGWA==")
 
 var params = []struct{ memory, time, parallelism uint32 }{
 	{64, 3, 4},
@@ -25,7 +27,7 @@ func BenchmarkArgon2id(b *testing.B) {
 	for _, example := range params {
 		b.Run(fmt.Sprintf("m=%d,t=%d,p=%d", example.memory, example.time, example.parallelism), func(b *testing.B) {
 			for b.Loop() {
-				argon2.IDKey(config.SECRET_KEY_BASE, []byte("wallet"), example.memory, example.time, uint8(example.parallelism), 32)
+				argon2.IDKey(SECRET_KEY_BASE, []byte("wallet"), example.memory, example.time, uint8(example.parallelism), 32)
 			}
 		})
 	}
@@ -44,7 +46,7 @@ func deriveKey(baseKey *hdkeychain.ExtendedKey, paths ...uint32) (key *hdkeychai
 
 func BenchmarkDeriveWallet(b *testing.B) {
 	b.Run("Derive master from seed", func(b *testing.B) {
-		seed := argon2.IDKey(config.SECRET_KEY_BASE, []byte("wallet"), 64, 3, 4, 32)
+		seed := argon2.IDKey(SECRET_KEY_BASE, []byte("wallet"), 64, 3, 4, 32)
 		for b.Loop() {
 			_, err := hdkeychain.NewMaster(seed, &chaincfg.MainNetParams)
 			if err != nil {
@@ -54,7 +56,7 @@ func BenchmarkDeriveWallet(b *testing.B) {
 	})
 
 	b.Run("Derive public key from neutered key", func(b *testing.B) {
-		seed := argon2.IDKey(config.SECRET_KEY_BASE, []byte("wallet"), 64, 3, 4, 32)
+		seed := argon2.IDKey(SECRET_KEY_BASE, []byte("wallet"), 64, 3, 4, 32)
 		master, err := hdkeychain.NewMaster(seed, &chaincfg.MainNetParams)
 		if err != nil {
 			b.Fatal(err)
