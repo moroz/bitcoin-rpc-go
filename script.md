@@ -18,6 +18,9 @@ The second reason is technical.
 If you assign a unique Bitcoin address to each payment, then whenever funds arrive at that address, you can unambiguously link them to a specific transaction.
 Combine that with a well designed payment processing system, and you can build a Website that practically prints money on autopilot.
 
+Once you have processed a number of payments, you can move the funds from several disposable addresses to your wallet in a process known as *sweeping*.
+In order to do that, 
+
 <!-- One downside of this approach is that, with many fragmented wallets and addresses, it can become difficult to spend the funds you have received. -->
 <!-- You can solve this by consolidating everything into a single wallet--a process known as sweeping, which I will cover in another video. -->
 
