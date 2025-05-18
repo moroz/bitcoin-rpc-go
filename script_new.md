@@ -1,0 +1,65 @@
+In this video I'm going to show you how to generate single-use Bitcoin wallets using the Go programming language.
+You can use this method in a payment processing system, for example to sell products and services or a website.
+
+Start by creating a Go project.
+Create a new directory to store the project.
+I'm going to call this project "michi", which is the Japanese word for "road".
+In this directory, initialize a Go module using `go mod init github.com/moroz/michi`.
+`moroz` is my Github username, and `michi` is the name of the project.
+Initialize an empty Git repository using `git init`.
+Stage all files for commit using `git add .`. Create an inital commit using `git commit`.
+
+Using `mkdir -p`, create a directory at `cmd/seed`, and `cd` into this directory.
+Create an empty file called `main.go` and open it in a code editor.
+Define `package main` and `func main()`.
+
+First, let's generate a seed value.
+Allocate a new byte slice with the length of 32.
+Using `rand.Read`, fill the slice with cryptographically secure random bytes.
+Next, let's print the value in Base64 to make sure this works.
+When we run the program using `go run .`, the program will print a random Base64-encoded string.
+Note that this value is going to be different each time you run this program.
+This is fine for now.
+
+Next, we need to install a Go library called `btcutil`.
+It is a part of a larger project called `btcd`, which is a full Bitcoin node implementation in Go.
+In the terminal, run `go get github.com/btcsuite/btcd/btcutil/hdkeychain`.
+This is going to install a package called `hdkeychain`, responsible for generating "hierarchical deterministic wallets".
+
+This may sound like a word salad, but what this means is that you can generate a number of key pairs from a single seed.
+More specifically, you can generate over 4 billion derivative keys from a single key pair.
+These addresses can be derived either using a "hardened" derivation from the parent's private key, or using non-hardened derivation, from the parent's public key.
+The exact algorithm used to derive these keypairs is defined in a document named "Bitcoin Improvement Proposal 32: Hierarchical Deterministic Wallets".
+You can repeat the derivation step several times to derive multiple levels of key pairs.
+
+In fact, popular wallet software uses this technique to manage multiple addresses in your wallet
+
+but what this means in practice is that you can derive 
+
+some Go libraries to derive addresses from this seed.
+We will use a method of key derivation defined in a document named BIP32, which is short for "Bitcoin Improvement Proposal 32: Hierarchical Deterministic Wallets".
+This may sound like a word salad, but the "wallets" are really just pairs of private and public keys.
+The private key proves that you own an address, but the public key is enough to receive a payment.
+
+This is going to be the initial secret value from which all 
+
+You can use this method for any type of online transactions, such as for sales on a website or in a mobile app, and with a little creativity you could even build a crypto-based point of sale system.
+
+<!-- We need the private key to spend coins, but having just the public key is enough to calculate a Bitcoin address and to receive a payment. -->
+We can call the wallets "hierarchical", because keys can be derived from a single secret in a tree-like structure, all based on the same seed value.
+At the same time, 
+<!-- "Deterministic" means that no matter how many times you perform the same operation, as long as the input values are the same, the result is going to be the same. -->
+To sum up: We can generate pairs of private and public keys in a top-down structure, all based on the same seed value.
+Now, for me the best part is that public keys can actually be derived from public keys, so you don't have to store the private key on the server.
+
+If you're new to this channel: My name is Karol Moroz, and you are watching Make Programming Fun Again.
+I specialize in highly technical videos about programming.
+This is my first video about Bitcoin, so if I got something wrong, please let me know in the comments, I am here to learn.
+
+There are dozens of companies out there that will happily sell you crypto wallets for a hundred dollars or more, but in its essence, a Bitcoin address 
+
+When receiving Bitcoin payments in an online setting, 
+
+Bitcoin addresses are often compared to bank accounts, because they can hold money
+When receiving a Bitcoin payment
+There are two reasons to use 
