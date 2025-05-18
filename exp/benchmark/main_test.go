@@ -27,7 +27,7 @@ func BenchmarkArgon2id(b *testing.B) {
 	for _, example := range params {
 		b.Run(fmt.Sprintf("m=%d,t=%d,p=%d", example.memory, example.time, example.parallelism), func(b *testing.B) {
 			for b.Loop() {
-				argon2.IDKey(SECRET_KEY_BASE, []byte("wallet"), example.memory, example.time, uint8(example.parallelism), 32)
+				argon2.IDKey(SECRET_KEY_BASE, []byte("wallet"), example.time, example.memory*1024, uint8(example.parallelism), 32)
 			}
 		})
 	}
