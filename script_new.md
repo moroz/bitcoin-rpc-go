@@ -17,22 +17,30 @@ First, let's generate a seed value.
 Allocate a new byte slice with the length of 32.
 Using `rand.Read`, fill the slice with cryptographically secure random bytes.
 Next, let's print the value in Base64 to make sure this works.
-When we run the program using `go run .`, the program will print a random Base64-encoded string.
+When we run the program using `go run .`, it will print a random Base64-encoded string.
 Note that this value is going to be different each time you run this program.
 This is fine for now.
 
-Next, we need to install a Go library called `btcutil`.
+Next, install a Go library called `btcutil`.
 It is a part of a larger project called `btcd`, which is a full Bitcoin node implementation in Go.
 In the terminal, run `go get github.com/btcsuite/btcd/btcutil/hdkeychain`.
 This is going to install a package called `hdkeychain`, responsible for generating "hierarchical deterministic wallets".
 
 This may sound like a word salad, but what this means is that you can generate a number of key pairs from a single seed.
-More specifically, you can generate over 4 billion derivative keys from a single key pair.
-These addresses can be derived either using a "hardened" derivation from the parent's private key, or using non-hardened derivation, from the parent's public key.
-The exact algorithm used to derive these keypairs is defined in a document named "Bitcoin Improvement Proposal 32: Hierarchical Deterministic Wallets".
-You can repeat the derivation step several times to derive multiple levels of key pairs.
+More specifically, you can generate over 4 billion derived key pairs from a single parent key pair.
+These keys and addresses can be derived either using "hardened" derivation, which requires the parent's private key, or using non-hardened derivation, which only requires the parent's public key.
+The exact algorithm used to derive these key pairs is defined in a document called "Bitcoin Improvement Proposal 32: Hierarchical Deterministic Wallets", or BIP32 for short.
 
-In fact, popular wallet software uses this technique to manage multiple addresses in your wallet
+You can repeat the derivation step multiple times to derive several levels of key pairs.
+If you record the indices used for each derivation step, you get what's called a "derivation path".
+In this notation, the master key is represented by a lowercase letter "m," and derivation levels are separated by slashes.
+Hardened derivation is indicated either by a prime symbol, (a fancy mathematical term for an apostrophe), or the lowercase letter "h" (for "hardened").
+
+The derivation algorithm is deterministic, which means that if you start with the same seed and follow the same derivation path, you will arrive at the same results.
+In fact, this is exactly how popular wallet software manages multiple addresses within your wallet.
+
+For the purposes of our project, we can take advantage of one particular property of this algorithm, namely that public keys and addresses can be derived from a public key.
+This means that the application generating addresses does not need to know the secret seed, 
 
 but what this means in practice is that you can derive 
 
